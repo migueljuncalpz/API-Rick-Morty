@@ -2,37 +2,34 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>API RickYMorty</title>
+    <title>Rick&Morty</title>
     <link rel="stylesheet" href="style.css">
     <script src="main.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
 </head>
 
 <body>
-<header>
-    <div id="header-container" class="header-container">
-        <img id="header-img" src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Rick_and_Morty.svg" alt="imagen de  RICK Y MORTY">
+    <header>
+        <div id="header-container" class="header-container">
+            <img id="header-img" src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Rick_and_Morty.svg" alt="imagen de  RICK Y MORTY">
+        </div>
+    </header>
+    <div id="search-element">
+        <form id="search-form">
+            <input type="text" name="query" placeholder="Buscar personaje" required>
+            <button type="submit">🔍</button>
+        </form>
     </div>
-    <form id="search-form">
-        <input type="text" name="query" placeholder="Buscar personaje" required>
-        <button type="submit">Buscar</button>
-    </form>
-</header>
-
-<div id="filters">
-    <h>Status:</h>
-    <button class="filterButton" name="none">none</button>
-    <button class="filterButton" name="Dead">Dead</button>
-    <button class="filterButton" name="Alive">Alive</button>
-    <button class="filterButton" name="unknown">Unknown</button>
-</div>
-
-<div role="list" class="character_container" id="character_container"> </div>
-
-<div id="pagination"></div>
-
+    <div id="filters">
+        <button class="filterButton" name="none">None</button>
+        <button class="filterButton" name="Dead">Dead</button>
+        <button class="filterButton" name="Alive">Alive</button>
+        <button class="filterButton" name="unknown">Unknown</button>
+    </div>
+    <div role="list" class="character_container" id="character_container"> </div>
+    <div id="pagination"></div>
 </body>
 </html>
