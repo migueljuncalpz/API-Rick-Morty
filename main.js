@@ -2,7 +2,6 @@ addEventListener('DOMContentLoaded', () => {
     const character_container = document.getElementById('character_container');
     const searchForm = document.querySelector('#search-form');
     const buttons = document.querySelectorAll('.filterButton');
-    console.log(buttons.length);
     const types = {
         Dead: { color: '#aa0223', fontcolor: '#000000'},
         Alive: { color: '#16be00', fontcolor:'#000000'},
@@ -10,14 +9,13 @@ addEventListener('DOMContentLoaded', () => {
     };
     let currentPage=1
     let url="https://rickandmortyapi.com/api/character/?"
-    searchForm.addEventListener('submit', async function(event) {
+    const debouncedRefresh = debounce(getCharacters,300)
+
+    searchForm.addEventListener('input', async function(event) {
         event.preventDefault();
         const query = this.elements.query.value;
         url = "https://rickandmortyapi.com/api/character/?" + `name=${query}`+"&"
-        const response = await fetch(url);
-        const data = await response.json();
-        refreshPage(data.results)
-        renderPagination(data.info.pages)
+        debouncedRefresh(url)
     });
     buttons.forEach( button =>{
         button.addEventListener("click",filterResults)
@@ -41,9 +39,13 @@ addEventListener('DOMContentLoaded', () => {
                 })
         }
     }
-    async function getCharacters() {
-        const response = await fetch('https://rickandmortyapi.com/api/character');
-        return response.json();
+    function getCharacters(url) {
+        fetch(url)
+            .then(response => response.json())
+            .then(data =>{
+                refreshPage(data.results);
+                renderPagination(data.info.pages)
+            })
     }
     function createCharacterCard(character){
         const character_element = document.createElement('div');
@@ -95,11 +97,18 @@ addEventListener('DOMContentLoaded', () => {
             pagination.appendChild(button);
         }
     }
-    getCharacters().then( data => {
-        const character_list = data.results
-        for (let i=0 ; i<character_list.length ; i++){
-            createCharacterCard(character_list[i])
-        }
-        renderPagination(data.info.pages)
-    })
+
+    getCharacters(url)
+    function debounce(func, delay) {
+        let timerId;
+        return function (...args) {
+            if (timerId) {
+                clearTimeout(timerId);
+            }
+            timerId = setTimeout(() => {
+                func.apply(this, args);
+                timerId = null;
+            }, delay);
+        };
+    }
 })

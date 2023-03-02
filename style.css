@@ -117,11 +117,6 @@ h1 {
     height: 90%;
     width: 90%;
 }
-
-.character .info {
-    margin-top: -20px;
-    width: 100%;
-}
 .character-card .number {
     background-color: rgba(190, 173, 173, 0.8);
     font-size: 0.8em;
