@@ -21,22 +21,16 @@ addEventListener('DOMContentLoaded', () => {
         button.addEventListener("click",filterResults)
     })
     function filterResults(event){
+        let href = new URL(url);
         if(event.target.name==="none"){
-            fetch(url)
-                .then(response => response.json())
-                .then(data =>{
-                    console.log("entro fetch")
-                    refreshPage(data.results);
-                    renderPagination(data.info.pages)
-                })
+            href.searchParams.delete("status")
+            url = href.toString()
+            getCharacters(url)
         }else {
-            fetch(url + "status=" + event.target.name+"&")
-                .then(response => response.json())
-                .then(data =>{
-                    console.log("entro fetch")
-                    refreshPage(data.results);
-                    renderPagination(data.info.pages)
-                })
+            href.searchParams.delete("status")
+            href.searchParams.append('status', event.target.name);
+            url = href.toString()
+            getCharacters(url)
         }
     }
     function getCharacters(url) {
@@ -88,11 +82,11 @@ addEventListener('DOMContentLoaded', () => {
             const button = document.createElement("button");
             button.textContent = i;
             button.onclick = () => {
-                // Manejar evento de clic para enviar solicitud HTTP a la API y actualizar los resultados
-                currentPage = i;
-                fetch(url + "page=" + currentPage+"&")
-                    .then(response => response.json())
-                    .then(data => refreshPage(data.results));
+                let href = new URL(url);
+                console.log("hola")
+                href.searchParams.delete("page")
+                href.searchParams.append('page', i);
+                getCharacters(href.toString())
             };
             pagination.appendChild(button);
         }
