@@ -108,6 +108,7 @@ h1 {
     min-width: 190px;
     width: 25vw;
     cursor: pointer;
+    transition: transform .2s;
     background-color: #eee;
     border-radius: 10px;
     box-shadow: 0 3px 15px rgba(100, 100, 100, 0.5);
@@ -124,6 +125,10 @@ h1 {
     .name {
         margin: 15px 0 7px;
         letter-spacing: 1px;
+    }
+
+    :hover{
+        transform: scale(1.5);
     }
 }
 
